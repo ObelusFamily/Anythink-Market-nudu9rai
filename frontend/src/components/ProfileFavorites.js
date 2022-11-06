@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import agent from "../agent";
 import { connect } from "react-redux";
 import {
+  FOLLOW_USER,
+  UNFOLLOW_USER,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
 } from "../constants/actionTypes";
@@ -12,6 +14,17 @@ const mapDispatchToProps = (dispatch) => ({
   onLoad: (pager, payload) =>
     dispatch({ type: PROFILE_PAGE_LOADED, pager, payload }),
   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
+  onFollow: (username) =>
+    dispatch({
+      type: FOLLOW_USER,
+      payload: agent.Profile.follow(username),
+    }),
+  onUnfollow: (username) =>
+    dispatch({
+      type: UNFOLLOW_USER,
+      payload: agent.Profile.unfollow(username),
+    }),
+
 });
 
 class ProfileFavorites extends Profile {
